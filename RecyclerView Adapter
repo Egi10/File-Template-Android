@@ -1,0 +1,54 @@
+#parse("File Header.java")
+public class ${NAME} extends
+       RecyclerView.Adapter<${NAME}.ViewHolder> {
+ 
+   private static final String TAG = ${NAME}.class.getSimpleName();
+ 
+   private Context context;
+   private List<${LIST_MODEL}> list;
+   private ${NAME}Callback mAdapterCallback;
+ 
+   public ${NAME}(Context context, ${NAME}Callback adapterCallback) {
+       this.context = context;
+       this.mAdapterCallback = adapterCallback;
+   }
+ 
+   @Override
+   public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+       View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.${item_layout},
+               parent, false);
+       return new ViewHolder(view);
+   }
+ 
+   @Override
+   public void onBindViewHolder(ViewHolder holder, int position) {
+       ${LIST_MODEL} item = list.get(position);
+   }
+ 
+   @Override
+   public int getItemCount() {
+       return list==null ? 0 : list.size();
+   }
+ 
+   public void clear() {
+       int size = this.list.size();
+       this.list.clear();
+       notifyItemRangeRemoved(0, size);
+   }
+   
+   public void setList(List<${LIST_MODEL}> list){
+       this.list = list;
+       notifyAdapterSetChanged();
+   }
+ 
+   public class ViewHolder extends RecyclerView.ViewHolder {
+ 
+       public ViewHolder(View itemView) {
+           super(itemView);
+       }
+   }
+   
+   public interface ${NAME}Callback {
+       void onRow${NAME}Clicked(int position);
+   }
+}
